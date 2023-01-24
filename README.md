@@ -1,4 +1,9 @@
 
+# Django Rest Framework Url Shortener
+
+
+
+
 ## Routes
 - All Shortened Links List
 
@@ -24,3 +29,17 @@ Json Data Example = {"title": "test2", "description": "test2", "main_url": "http
 
 user : dhia@dhia.com
 password : dhia@dhia.com
+## Project Requirements
+
+```bash
+  pip install django
+  pip install djangorestframework
+```
+    
+## How To Run The Project
+
+```bash
+  git clone https://github.com/dhiabenmaati/Django-Url-Shortener-Api.git
+  python manage.py runserver
+```
+
