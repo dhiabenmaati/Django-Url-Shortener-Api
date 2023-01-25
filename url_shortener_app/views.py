@@ -10,6 +10,7 @@ from django.template import loader
 import random
 import string
 
+
 ## INDEX
 def index(request):
     template = loader.get_template("index.html")
@@ -43,7 +44,6 @@ def urlCreate(request):
 
     return Response("Please check your data")
 
-
 ## Delete Link
 @api_view(["DELETE"])
 def urlDelete(request, pk):
@@ -65,3 +65,4 @@ def urlRedirect(request, pk):
 
     else:
         return Response("Nothing Found Here")
+

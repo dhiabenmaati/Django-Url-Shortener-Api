@@ -716,16 +716,32 @@
     <script src='http://code.jquery.com/jquery-1.11.3.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script>
+      
       //START AJAX
       $(document).ready(function() {
         $.get('http://127.0.0.1:8000/api/all-links', function(data) {
           for (var i = 0; i < data.length; i++) {
-            $msg = ' < tr > < td > ' + data[i].main_url + ' < /td> < td > 127.0 .0 .1: 8000 / api / redirect / ' + data[i].shrtened_ur + ' < /td> < td > 127.0 .0 .1: 8000 / api / delete - link / ' + data[i].edit_password + ' < /td> < /tr>';                       
+            $msg = '<tr><td>'+data[i].main_url+'</td><td>127.0.0.1:8000/api/redirect/'+data[i].shrtened_ur+'</td><td>127.0.0.1:8000/api/delete-link/'+data[i].edit_password+'</td></tr>';                       
             $(".get-message").append($msg);
           }
         })
       });
-
+/*
+      $.ajax({
+          method: "POST",
+          url: "http://127.0.0.1:8000/api/create-link",
+          headers: {'X-CSRFToken': '{{ csrf_token }}'},
+          contentType: "application/json",
+          dataType: 'json',
+          data: '{"main_url": "https://google.com"}'
+      })
+      .fail(function(message) {
+          alert('error');
+      })
+      .done(function(data) {
+          alert(data);
+      });
+*/
       function AlertMe() {
         alert("Due To CSRF Protection Error This Functionality Was Removed ! I even made a security vulnerability and Disabled CsrfViewMiddleware + allowed All Cors Origins But Ajax Posts Still Forbiddn 403 error ! ps : i tried to send csrf token in ajax, in form etc ..");
       }
