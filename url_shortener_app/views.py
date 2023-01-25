@@ -28,19 +28,21 @@ def urlList(request):
 ## Create Link
 @api_view(["POST"])
 def urlCreate(request):
-    data = request.data
+    if request.method == 'POST':
+        data = {}
+        data["main_url"] = request.POST['link']
 
-    shortened_url = "".join(random.choices(string.ascii_lowercase, k=9))
-    edit_password = random.randint(1000000, 9999999999999999)
+        shortened_url = "".join(random.choices(string.ascii_lowercase, k=9))
+        edit_password = random.randint(1000000, 9999999999999999)
 
-    data["shrtened_ur"] = shortened_url
-    data["edit_password"] = edit_password
-    print(data)
-    serializer = UrlSerializer(data=data)
+        data["shrtened_ur"] = shortened_url
+        data["edit_password"] = edit_password
+        print(data)
+        serializer = UrlSerializer(data=data)
 
-    if serializer.is_valid():
-        serializer.save()
-        return Response("saved")
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
 
     return Response("Please check your data")
 

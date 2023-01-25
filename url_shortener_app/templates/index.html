@@ -686,17 +686,21 @@
     <main>
       <section id="urlbox">
         <h1>Paste the URL to be shortened</h1>
-        <form method="post">
+        <form id="post-form">
+          {% csrf_token %}
           <div id="formurl">
-            <input type="text" name="u" placeholder="Enter the link here">
+            <input type="text" id="link" name="link" class="textbox" placeholder="Enter Your Url Here"/>
             <div id="formbutton">
-              <input onclick="AlertMe()" type="submit" value="Shorten URL">
+              <input type="submit" class="start-button"/>
             </div>
           </div>
         </form>
+
         <br>
         <br>
         <br>
+        <h5></h5>
+        <h6></h6>
       </section>
       <section>
         <table class="table">
@@ -726,24 +730,23 @@
           }
         })
       });
-/*
-      $.ajax({
-          method: "POST",
-          url: "http://127.0.0.1:8000/api/create-link",
-          headers: {'X-CSRFToken': '{{ csrf_token }}'},
-          contentType: "application/json",
-          dataType: 'json',
-          data: '{"main_url": "https://google.com"}'
-      })
-      .fail(function(message) {
-          alert('error');
-      })
-      .done(function(data) {
-          alert(data);
-      });
-*/
-      function AlertMe() {
-        alert("Due To CSRF Protection Error This Functionality Was Removed ! I even made a security vulnerability and Disabled CsrfViewMiddleware + allowed All Cors Origins But Ajax Posts Still Forbiddn 403 error ! ps : i tried to send csrf token in ajax, in form etc ..");
-      }
+
+      $(document).on('submit', '#post-form', function(e){
+        e.preventDefault();
+
+        $.ajax({
+            type:'POST',
+            url:'api/create-link',
+            data:{
+                link:$('#link').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function(data){
+                $('h5').html('your shortened url : 127.0.0.1:8000/api/redirect/'+data.shrtened_ur)
+                $('h6').html('your url to delete this url : 127.0.0.1:8000/api/delete-link/'+data.edit_password)
+            }
+
+        });
+    });
     </script>
 </html>
